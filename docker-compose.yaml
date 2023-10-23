@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   bootnode:
-    image: ghcr.io/wuzhanfly/bpc-genesis-config-v2:latest
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-v2:latest
     command:
       - "geth"
       - "--datadir=/datadir"
@@ -27,7 +27,7 @@ services:
   validator_1:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-genesis-config-v2:latest
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-v2:latest
     command:
       - "geth"
       - "--datadir=/datadir"
@@ -58,7 +58,7 @@ services:
   validator_2:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-genesis-config-v2:latest
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-v2:latest
     command:
       - "geth"
       - "--datadir=/datadir"
@@ -89,7 +89,7 @@ services:
   validator_3:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-genesis-config-v2:latest
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-v2:latest
     command:
       - "geth"
       - "--datadir=/datadir"
@@ -120,7 +120,7 @@ services:
   rpc:
     depends_on:
     - bootnode
-    image: ghcr.io/wuzhanfly/bpc-genesis-config-v2:latest
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-v2:latest
     command:
       - "geth"
       - "--datadir=/datadir"
@@ -160,7 +160,7 @@ services:
   faucet:
     depends_on:
     - bootnode
-    image: ghcr.io/wuzhanfly/bpc-genesis-config-v2:latest
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-v2:latest
     command:
       - "faucet"
       - "--genesis=/datadir/genesis.json"
