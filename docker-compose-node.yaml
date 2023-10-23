@@ -1,0 +1,189 @@
+version: "3.8"
+services:
+  bootnode:
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--networkid=${CHAIN_ID}"
+      - "--nodekey=/datadir/bootnodes.key"
+      - "--syncmode=full"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./datadir/bootnode:/datadir/geth"
+      - "./config/bootnodes.key:/datadir/bootnodes.key"
+    ports:
+      - "30303:30303"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  validator_1:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0x418910f51c0ce45cad097f506498bd4be588410b"
+      - "--miner.etherbase=0x418910f51c0ce45cad097f506498bd4be588410b"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=${CHAIN_ID}"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/validator_1:/datadir/geth"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  validator_2:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265"
+      - "--miner.etherbase=0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=${CHAIN_ID}"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/validator_2:/datadir/geth"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  validator_3:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0x8becacbe7ee37ef44982be87fd621b233958c3df"
+      - "--miner.etherbase=0x8becacbe7ee37ef44982be87fd621b233958c3df"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=${CHAIN_ID}"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/validator_3:/datadir/geth"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  rpc:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--networkid=${CHAIN_ID}"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--http"
+      - "--http.addr=0.0.0.0"
+      - "--http.api=eth,net,web3,debug,trace,txpool"
+      - "--http.port=8545"
+      - "--http.corsdomain=*"
+      - "--http.vhosts=*"
+      - "--ws"
+      - "--ws.addr=0.0.0.0"
+      - "--ws.api=eth,net,web3,debug,trace,txpool"
+      - "--ws.port=8546"
+      - "--ws.origins=*"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/rpc:/datadir/geth"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  faucet:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    command:
+      - "faucet"
+      - "--genesis=/datadir/genesis.json"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--network=${CHAIN_ID}"
+      - "--account.json=/datadir/keystore/UTC--2023-10-11T08-40-33.586739319Z--97d99521d512ad3449e54156adc2cbab94907a16"
+      - "--account.pass=/datadir/password.txt"
+      - "--rpcapi=ws://host.docker.internal:8546"
+      - "--noauth=true"
+      - "--faucet.name=RC"
+      - "--faucet.amount=1"
+      - "--faucet.tiers=2"
+    # ports:
+    #   - "3000:8080"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size

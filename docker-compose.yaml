@@ -1,0 +1,319 @@
+version: "3.8"
+services:
+  bootnode:
+    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--networkid=${CHAIN_ID}"
+      - "--nodekey=/datadir/bootnodes.key"
+      - "--syncmode=full"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./datadir/bootnode:/datadir/geth"
+      - "./config/bootnodes.key:/datadir/bootnodes.key"
+    ports:
+      - "30303:30303"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  validator_1:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-v2:dev
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0x418910f51c0ce45cad097f506498bd4be588410b"
+      - "--miner.etherbase=0x418910f51c0ce45cad097f506498bd4be588410b"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=${CHAIN_ID}"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/validator_1:/datadir/geth"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  validator_2:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-v2:dev
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265"
+      - "--miner.etherbase=0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=${CHAIN_ID}"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/validator_2:/datadir/geth"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  validator_3:
+    depends_on:
+      - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-v2:dev
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--mine"
+      - "--password=/datadir/password.txt"
+      - "--allow-insecure-unlock"
+      - "--unlock=0x8becacbe7ee37ef44982be87fd621b233958c3df"
+      - "--miner.etherbase=0x8becacbe7ee37ef44982be87fd621b233958c3df"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--networkid=${CHAIN_ID}"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/validator_3:/datadir/geth"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  rpc:
+    depends_on:
+    - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-v2:dev
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--networkid=${CHAIN_ID}"
+      - "--gcmode=archive"
+      - "--syncmode=full"
+      - "--http"
+      - "--http.addr=0.0.0.0"
+      - "--http.api=eth,net,web3,debug,trace,txpool"
+      - "--http.port=8545"
+      - "--http.corsdomain=*"
+      - "--http.vhosts=*"
+      - "--ws"
+      - "--ws.addr=0.0.0.0"
+      - "--ws.api=eth,net,web3,debug,trace,txpool"
+      - "--ws.port=8546"
+      - "--ws.origins=*"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./datadir/rpc:/datadir/geth"
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+
+  faucet:
+    depends_on:
+    - bootnode
+    image: ghcr.io/wuzhanfly/bpc-template-v2:dev
+    command:
+      - "faucet"
+      - "--genesis=/datadir/genesis.json"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
+      - "--network=${CHAIN_ID}"
+      - "--account.json=/datadir/keystore/UTC--2023-10-02T10-59-47.185Z--2C58065b210d61A4ca8c7621F1817519B768D062"
+      - "--account.pass=/datadir/password.txt"
+      - "--rpcapi=ws://host.docker.internal:8546"
+      - "--noauth=true"
+      - "--faucet.name=DAP"
+      - "--faucet.amount=1"
+      - "--faucet.tiers=2"
+    # ports:
+    #   - "3000:8080"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./config/keystore:/datadir/keystore"
+      - "./config/password.txt:/datadir/password.txt"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
+  blockscout-db:
+    image: postgres:14
+    restart: always
+    container_name: 'postgres'
+    command: postgres -c 'max_connections=200'
+    environment:
+      POSTGRES_PASSWORD: 'uafwGGCHnF3rym0'
+      POSTGRES_USER: 'blockscout'
+      # POSTGRES_HOST_AUTH_METHOD: 'trust'
+    volumes:
+      - ./.data/blockscout:/var/lib/postgresql/data/
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    # ports:
+    #   - "7432:5432"
+
+  redis_db:
+    image: 'redis:alpine'
+    command: redis-server 
+    container_name: redis_db
+    volumes:
+      - ./.data/redis:/data
+    ports:
+      - "6379:6379"
+    restart: always
+
+  blockscout:
+    depends_on:
+      - blockscout-db
+      - redis_db
+    image: blockscout/blockscout:${DOCKER_TAG:-latest}
+    restart: always
+    stop_grace_period: 5m
+    container_name: 'blockscout'
+    links:
+      - blockscout-db:database
+    command: sh -c "bin/blockscout eval \"Elixir.Explorer.ReleaseTasks.create_and_migrate()\" && bin/blockscout start"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    env_file:
+      -  ./config/envs/metadap-blockscout.env
+    environment:
+      ETHEREUM_JSONRPC_HTTP_URL: "http://host.docker.internal:8545/"
+      ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:8545/
+      ETHEREUM_JSONRPC_WS_URL: ws://host.docker.internal:8546/
+      NETWORK: "MetaDAP Testnet"
+      CHAIN_ID: "${CHAIN_ID}"
+      DATABASE_URL: "postgresql://blockscout:uafwGGCHnF3rym0@blockscout-db:5432/blockscout?ssl=false"
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./logs/:/app/logs/
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "3"   # number of files or file count
+        max-size: "100m" # file size
+
+
+  visualizer:
+  #   extends:
+  #     file: ./services/docker-compose-visualizer.yml
+  #     service: visualizer
+    image: ghcr.io/blockscout/visualizer:${VISUALIZER_DOCKER_TAG:-latest}
+    # pull_policy: always
+    platform: linux/amd64
+    restart: always
+    container_name: 'visualizer'
+    env_file:
+      -  ./config/envs/common-visualizer.env
+    # ports:
+    #   - 8152:8050
+
+  sig-provider:
+    image: ghcr.io/blockscout/sig-provider:${SIG_PROVIDER_DOCKER_TAG:-latest}
+    # pull_policy: always
+    restart: always
+    platform: linux/amd64
+    container_name: 'sig-provider'
+    # ports:
+    #   - 8151:8050
+
+  frontend:
+    depends_on:
+      - blockscout
+    image: ghcr.io/blockscout/frontend:${FRONTEND_DOCKER_TAG:-latest}
+    # pull_policy: always
+    platform: linux/amd64
+    restart: always
+    container_name: 'frontend'
+    env_file:
+      -  ./config/envs/metadap-frontend.env
+    ports:
+      - 3004:3000
+
+  stats-db:
+    depends_on:
+      - blockscout
+    image: postgres:14
+    restart: always
+    container_name: 'stats-postgres'
+    command: postgres -c 'max_connections=200'
+    environment:
+        POSTGRES_PASSWORD: ''
+        POSTGRES_USER: 'postgres'
+        POSTGRES_HOST_AUTH_METHOD: 'trust'
+    # ports:
+    #   - 7433:5432
+    volumes:
+      - ./.data/stats-db-data:/var/lib/postgresql/data/
+
+  stats:
+    depends_on:
+      - stats-db
+    image: ghcr.io/blockscout/stats:${STATS_DOCKER_TAG:-latest}
+    # pull_policy: always
+    platform: linux/amd64
+    restart: always
+    container_name: 'stats'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    env_file:
+      -  ./config/envs/common-stats.env
+    environment:
+      - STATS__DB_URL=postgres://postgres:@stats-db:5432/stats
+      - STATS__BLOCKSCOUT_DB_URL=postgresql://blockscout:uafwGGCHnF3rym0@blockscout-db:5432/blockscout
+      - STATS__CREATE_DATABASE=true
+      - STATS__RUN_MIGRATIONS=true
+    ports:
+      - 8153:8050

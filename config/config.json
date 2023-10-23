@@ -1,0 +1,42 @@
+{
+  "chainId": 16001,
+  "validators": [
+    "0x418910f51c0ce45cad097f506498bd4be588410b",
+    "0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265",
+    "0x8becacbe7ee37ef44982be87fd621b233958c3df"
+  ],
+  "systemTreasury": {
+    "0x418910f51c0ce45cad097f506498bd4be588410b": 9000,
+    "0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265": 1000
+  },
+  "identityParams":{
+    "identityOwners":[
+      "0x418910f51c0ce45cad097f506498bd4be588410b",
+      "0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265",
+      "0x8becacbe7ee37ef44982be87fd621b233958c3df",
+      "0x97d99521d512ad3449e54156adc2cbab94907a16"
+    ]
+  },
+  "consensusParams": {
+    "activeValidatorsLength": 13,
+    "epochBlockInterval": 100,
+    "misdemeanorThreshold": 10,
+    "felonyThreshold": 5,
+    "validatorJailEpochLength": 2,
+    "undelegatePeriod": 3,
+    "minValidatorStakeAmount": "0xde0b6b3a7640000",
+    "minStakingAmount": "0xde0b6b3a7640000"
+  },
+  "initialStakes": {
+    "0x418910f51c0ce45cad097f506498bd4be588410b": "0x21E19E0C9BAB2400000",
+    "0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265": "0x21E19E0C9BAB2400000",
+    "0x8becacbe7ee37ef44982be87fd621b233958c3df": "0x21E19E0C9BAB24000"
+  },
+  "votingPeriod": 60,
+  "faucet": {
+    "0x418910f51c0ce45cad097f506498bd4be588410b": "0x56bc75e2d63100000",
+    "0xb7e6f3e7dd9f0ec7e28226e8b793ff5bef723265": "0x56bc75e2d63100000",
+    "0x8becacbe7ee37ef44982be87fd621b233958c3df": "0x56bc75e2d63100000",
+    "0x97d99521d512ad3449e54156adc2cbab94907a16": "0x52b7d2dcc80cd2e4000000"
+  }
+}

@@ -1,0 +1,18 @@
+[
+    {
+       "author":"BPC-RC",
+       "id":"retx",
+       "title":"RETX",
+       "logo":"https://raw.githubusercontent.com/wuzhanfly/ft-blockscout/main/configs/marketplace-logos/Logo_RETX_02.png",
+       "logoDarkMode":"https://raw.githubusercontent.com/wuzhanfly/ft-blockscout/main/configs/marketplace-logos/Logo_RETX_02.png",
+       "categories":[
+          "Transactions, investment, and asset management"
+       ],
+       "shortDescription":"RETX provides processes and tools to support businesses in asset tokenization, issuance of encrypted assets, and other digital assets such as loyalty points, evouchers, ecoupons, or etickets.",
+       "site":"https://retx.vn/",
+       "description":"RETX provides processes and tools to support businesses in asset tokenization, issuance of encrypted assets, and other digital assets such as loyalty points, evouchers, ecoupons, or etickets.",
+       "url":"https://retx.vn/",
+       "external":true
+    }
+
+]
