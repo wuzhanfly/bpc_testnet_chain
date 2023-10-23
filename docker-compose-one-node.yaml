@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   validator_add:
-    image: ghcr.io/wuzhanfly/bpc-template-bsc-dao:latest
+    image: ghcr.io/wuzhanfly/bpc-genesis-config-v2:latest
     command:
       - "geth"
       - "--datadir=/datadir"
