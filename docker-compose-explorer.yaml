@@ -40,7 +40,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file:
-      -  ./config/envs/metadap-blockscout.env
+      - config/envs/bpc-blockscout.env
     environment:
       ETHEREUM_JSONRPC_HTTP_URL: "http://host.docker.internal:8545/"
       ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:8545/
@@ -91,7 +91,7 @@ services:
     restart: always
     container_name: 'frontend'
     env_file:
-      -  ./config/envs/metadap-frontend.env
+      - config/envs/bpc-frontend.env
     ports:
       - 3004:3000
 
