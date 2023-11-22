@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  bootnode2:
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
+    command:
+      - "geth"
+      - "--datadir=/datadir"
+      - "--genesis=/datadir/genesis.json"
+      - "--networkid=${CHAIN_ID}"
+      - "--nodekey=/datadir/bootnodes2.key"
+      - "--syncmode=full"
+    volumes:
+      - "./genesis.json:/datadir/genesis.json"
+      - "./datadir/bootnode2:/datadir/geth"
+      - "./config/bootnodes2.key:/datadir/bootnodes.key"
+    ports:
+      - "30304:30303"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"   # number of files or file count
+        max-size: "100m" # file size
