@@ -1,20 +1,23 @@
 version: "3.8"
 services:
-  bootnode2:
+  bootnode:
     image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--networkid=${CHAIN_ID}"
-      - "--nodekey=/datadir/bootnodes2.key"
+      - "--nodekey=/datadir/bootnodes.key"
+      - "--blspassword=/datadir/password.txt"
+      - "--verbosity=4"
       - "--syncmode=full"
     volumes:
       - "./genesis.json:/datadir/genesis.json"
-      - "./datadir/bootnode2:/datadir/geth"
-      - "./config/bootnodes2.key:/datadir/bootnodes.key"
+      - "./datadir/bootnode:/datadir/geth"
+      - "./config/password.txt:/datadir/password.txt"
+      - "./config/bootnodes.key:/datadir/bootnodes.key"
+      - "./config/bls/data55/bls:/datadir/bls"
     ports:
-      - "30304:30303"
+      - "30303:30303"
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     restart: always

@@ -1,19 +1,21 @@
 version: "3.8"
 services:
   bootnode:
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--networkid=${CHAIN_ID}"
       - "--nodekey=/datadir/bootnodes.key"
+      - "--blspassword=/datadir/password.txt"
       - "--verbosity=4"
       - "--syncmode=full"
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./datadir/bootnode:/datadir/geth"
+      - "./config/password.txt:/datadir/password.txt"
       - "./config/bootnodes.key:/datadir/bootnodes.key"
+      - "./config/bls/data55/bls:/datadir/bls"
     ports:
       - "30303:30303"
     extra_hosts:
@@ -28,19 +30,17 @@ services:
   validator_1:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data1"
       - "--allow-insecure-unlock"
       - "--unlock=0x73a8bceFA940Cefbf4cADB9fa79c30Ac283BA867"
       - "--miner.etherbase=0x73a8bceFA940Cefbf4cADB9fa79c30Ac283BA867"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:30313"
       - "--gcmode=archive"
       - "--verbosity=4"
       - "--syncmode=full"
@@ -48,7 +48,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data1:/datadir/bls/data1"
+      - "./config/bls/data1:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_1:/datadir/geth"
     extra_hosts:
@@ -63,9 +63,8 @@ services:
   validator_2:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
@@ -75,7 +74,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0x345D31A29dE1f8388EA7954f0dDF73782a9caD08"
       - "--miner.etherbase=0x345D31A29dE1f8388EA7954f0dDF73782a9caD08"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:30313"
       - "--gcmode=archive"
       - "--verbosity=4"
       - "--syncmode=full"
@@ -83,7 +82,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data2:/datadir/bls/data2"
+      - "./config/bls/data2:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_2:/datadir/geth"
     extra_hosts:
@@ -98,9 +97,8 @@ services:
   validator_3:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
@@ -120,7 +118,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data3:/datadir/bls/data3"
+      - "./config/bls/data3:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_3:/datadir/geth"
     restart: always
@@ -133,9 +131,8 @@ services:
   validator_4:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
@@ -155,7 +152,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data4:/datadir/bls/data4"
+      - "./config/bls/data4:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_4:/datadir/geth"
     restart: always
@@ -168,15 +165,13 @@ services:
   validator_5:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data5"
       - "--allow-insecure-unlock"
       - "--unlock=0xC359Fe96EfD30F289608804DDDFd46EB14162430"
       - "--miner.etherbase=0xC359Fe96EfD30F289608804DDDFd46EB14162430"
@@ -189,7 +184,7 @@ services:
       - 'host.docker.internal:host-gateway'
     volumes:
       - "./genesis.json:/datadir/genesis.json"
-      - "./config/bls/data5:/datadir/bls/data5"
+      - "./config/bls/data5:/datadir/bls"
       - "./config/keystore:/datadir/keystore"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_5:/datadir/geth"
@@ -203,15 +198,13 @@ services:
   validator_6:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data6"
       - "--allow-insecure-unlock"
       - "--unlock=0x930B166e73B4B5f93299D3E4739F9a1dc92a8407"
       - "--miner.etherbase=0x930B166e73B4B5f93299D3E4739F9a1dc92a8407"
@@ -225,7 +218,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data6:/datadir/bls/data6"
+      - "./config/bls/data6:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_6:/datadir/geth"
     restart: always
@@ -238,15 +231,13 @@ services:
   validator_7:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data7"
       - "--allow-insecure-unlock"
       - "--unlock=0x1Edb50507114Cfb3D082d55fDfA6FDcFF4EDa591"
       - "--miner.etherbase=0x1Edb50507114Cfb3D082d55fDfA6FDcFF4EDa591"
@@ -260,7 +251,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data7:/datadir/bls/data7"
+      - "./config/bls/data7:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_7:/datadir/geth"
     restart: always
@@ -273,15 +264,13 @@ services:
   validator_8:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data8"
       - "--allow-insecure-unlock"
       - "--unlock=0xB38eA6371499c1B364C61bF15404760374962339"
       - "--miner.etherbase=0xB38eA6371499c1B364C61bF15404760374962339"
@@ -295,7 +284,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data8:/datadir/bls/data8"
+      - "./config/bls/data8:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_8:/datadir/geth"
     restart: always
@@ -308,15 +297,13 @@ services:
   validator_9:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data9"
       - "--allow-insecure-unlock"
       - "--unlock=0xe1b34f145262c06e74a58c111CDbC148753BBcC1"
       - "--miner.etherbase=0xe1b34f145262c06e74a58c111CDbC148753BBcC1"
@@ -331,7 +318,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data9:/datadir/bls/data9"
+      - "./config/bls/data9:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_9:/datadir/geth"
     restart: always
@@ -344,15 +331,13 @@ services:
   validator_10:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data10"
       - "--allow-insecure-unlock"
       - "--unlock=0xF016A30Aeb1AaFa2EB4b2deBf981a153246C9507"
       - "--miner.etherbase=0xF016A30Aeb1AaFa2EB4b2deBf981a153246C9507"
@@ -366,7 +351,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data10:/datadir/bls/data10"
+      - "./config/bls/data10:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_10:/datadir/geth"
     restart: always
@@ -379,15 +364,13 @@ services:
   validator_11:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data11"
       - "--allow-insecure-unlock"
       - "--unlock=0x69C1E8b33254BEaf4BBc35EA49206b24172341bE"
       - "--miner.etherbase=0x69C1E8b33254BEaf4BBc35EA49206b24172341bE"
@@ -401,7 +384,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data11:/datadir/bls/data11"
+      - "./config/bls/data11:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_11:/datadir/geth"
     restart: always
@@ -414,15 +397,13 @@ services:
   validator_12:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data12"
       - "--allow-insecure-unlock"
       - "--unlock=0xa8fd80cA9D309a7dd34785975cF03de1F9D85C5B"
       - "--miner.etherbase=0xa8fd80cA9D309a7dd34785975cF03de1F9D85C5B"
@@ -436,7 +417,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data12:/datadir/bls/data12"
+      - "./config/bls/data12:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_12:/datadir/geth"
     restart: always
@@ -449,15 +430,13 @@ services:
   validator_13:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data13"
       - "--allow-insecure-unlock"
       - "--unlock=0x3D97A28C98B5fb50B4FaeC70F98597513929C0a6"
       - "--miner.etherbase=0x3D97A28C98B5fb50B4FaeC70F98597513929C0a6"
@@ -471,7 +450,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data13/datadir/bls/data13"
+      - "./config/bls/data13:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_13:/datadir/geth"
     restart: always
@@ -483,13 +462,13 @@ services:
   rpc:
     depends_on:
       - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:dev
     command:
-      - "geth"
       - "--datadir=/datadir"
       - "--genesis=/datadir/genesis.json"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--networkid=${CHAIN_ID}"
+      - "--blspassword=/datadir/password.txt"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -514,37 +493,7 @@ services:
       - "./config/keystore:/datadir/keystore"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/rpc:/datadir/geth"
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "10"   # number of files or file count
-        max-size: "100m" # file size
-
-  faucet:
-    depends_on:
-      - bootnode
-    image: ghcr.io/wuzhanfly/bpc-v3:latest
-    command:
-      - "faucet"
-      - "--genesis=/datadir/genesis.json"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
-      - "--network=${CHAIN_ID}"
-      - "--account.json=/datadir/keystore/UTC--2023-10-11T08-40-33.586739319Z--97d99521d512ad3449e54156adc2cbab94907a16"
-      - "--account.pass=/datadir/password.txt"
-      - "--rpcapi=ws://host.docker.internal:8546"
-      - "--noauth=true"
-      - "--faucet.name=RC"
-      - "--faucet.amount=1"
-      - "--faucet.tiers=2"
-    # ports:
-    #   - "3000:8080"
-    volumes:
-      - "./genesis.json:/datadir/genesis.json"
-      - "./config/keystore:/datadir/keystore"
-      - "./config/password.txt:/datadir/password.txt"
-    extra_hosts:
-      - 'host.docker.internal:host-gateway'
+      - "./config/bls/data54:/datadir/bls"
     restart: always
     logging:
       driver: "json-file"

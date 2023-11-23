@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   bootnode:
-    image: ghcr.io/wuzhanfly/bpc-template-bsc-v2:latest
+    image: ghcr.io/wuzhanfly/bpc-v3:main
     command:
       - "geth"
       - "--datadir=/datadir"
@@ -11,7 +11,7 @@ services:
       - "--syncmode=full"
     volumes:
       - "./genesis.json:/datadir/genesis.json"
-      - "./datadir/bootnode:/datadir/geth"
+      - "./datadir/bootnode2:/datadir/geth"
       - "./config/bootnodes.key:/datadir/bootnodes.key"
     ports:
       - "30303:30303"
