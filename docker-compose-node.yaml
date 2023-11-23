@@ -40,7 +40,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0x73a8bceFA940Cefbf4cADB9fa79c30Ac283BA867"
       - "--miner.etherbase=0x73a8bceFA940Cefbf4cADB9fa79c30Ac283BA867"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--verbosity=4"
       - "--syncmode=full"
@@ -48,7 +48,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data1:/datadir/bls"
+      - "./config/bls/data1/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_1:/datadir/geth"
     extra_hosts:
@@ -70,11 +70,10 @@ services:
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data2"
       - "--allow-insecure-unlock"
       - "--unlock=0x345D31A29dE1f8388EA7954f0dDF73782a9caD08"
       - "--miner.etherbase=0x345D31A29dE1f8388EA7954f0dDF73782a9caD08"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--verbosity=4"
       - "--syncmode=full"
@@ -82,7 +81,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data2:/datadir/bls"
+      - "./config/bls/data2/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_2:/datadir/geth"
     extra_hosts:
@@ -104,11 +103,10 @@ services:
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data3"
       - "--allow-insecure-unlock"
       - "--unlock=0x378E1761be54ab6545e6563d1b59b424D3eE31A5"
       - "--miner.etherbase=0x378E1761be54ab6545e6563d1b59b424D3eE31A5"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -118,7 +116,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data3:/datadir/bls"
+      - "./config/bls/data3/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_3:/datadir/geth"
     restart: always
@@ -138,11 +136,10 @@ services:
       - "--mine"
       - "--password=/datadir/password.txt"
       - "--blspassword=/datadir/password.txt"
-      - "--blswallet=/datadir/bls/data4"
       - "--allow-insecure-unlock"
       - "--unlock=0x000E0883978b34302EF7359cB480299767EE36a2"
       - "--miner.etherbase=0x000E0883978b34302EF7359cB480299767EE36a2"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -152,7 +149,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data4:/datadir/bls"
+      - "./config/bls/data4/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_4:/datadir/geth"
     restart: always
@@ -175,7 +172,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0xC359Fe96EfD30F289608804DDDFd46EB14162430"
       - "--miner.etherbase=0xC359Fe96EfD30F289608804DDDFd46EB14162430"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -184,7 +181,7 @@ services:
       - 'host.docker.internal:host-gateway'
     volumes:
       - "./genesis.json:/datadir/genesis.json"
-      - "./config/bls/data5:/datadir/bls"
+      - "./config/bls/data5/bls:/datadir/bls"
       - "./config/keystore:/datadir/keystore"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_5:/datadir/geth"
@@ -208,7 +205,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0x930B166e73B4B5f93299D3E4739F9a1dc92a8407"
       - "--miner.etherbase=0x930B166e73B4B5f93299D3E4739F9a1dc92a8407"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -218,7 +215,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data6:/datadir/bls"
+      - "./config/bls/data6/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_6:/datadir/geth"
     restart: always
@@ -241,7 +238,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0x1Edb50507114Cfb3D082d55fDfA6FDcFF4EDa591"
       - "--miner.etherbase=0x1Edb50507114Cfb3D082d55fDfA6FDcFF4EDa591"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -251,7 +248,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data7:/datadir/bls"
+      - "./config/bls/data7/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_7:/datadir/geth"
     restart: always
@@ -274,7 +271,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0xB38eA6371499c1B364C61bF15404760374962339"
       - "--miner.etherbase=0xB38eA6371499c1B364C61bF15404760374962339"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -284,7 +281,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data8:/datadir/bls"
+      - "./config/bls/data8/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_8:/datadir/geth"
     restart: always
@@ -307,8 +304,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0xe1b34f145262c06e74a58c111CDbC148753BBcC1"
       - "--miner.etherbase=0xe1b34f145262c06e74a58c111CDbC148753BBcC1"
-      - ""
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -318,7 +314,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data9:/datadir/bls"
+      - "./config/bls/data9/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_9:/datadir/geth"
     restart: always
@@ -341,7 +337,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0xF016A30Aeb1AaFa2EB4b2deBf981a153246C9507"
       - "--miner.etherbase=0xF016A30Aeb1AaFa2EB4b2deBf981a153246C9507"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -351,7 +347,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data10:/datadir/bls"
+      - "./config/bls/data10/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_10:/datadir/geth"
     restart: always
@@ -374,7 +370,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0x69C1E8b33254BEaf4BBc35EA49206b24172341bE"
       - "--miner.etherbase=0x69C1E8b33254BEaf4BBc35EA49206b24172341bE"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -384,7 +380,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data11:/datadir/bls"
+      - "./config/bls/data11/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_11:/datadir/geth"
     restart: always
@@ -407,7 +403,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0xa8fd80cA9D309a7dd34785975cF03de1F9D85C5B"
       - "--miner.etherbase=0xa8fd80cA9D309a7dd34785975cF03de1F9D85C5B"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -417,7 +413,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data12:/datadir/bls"
+      - "./config/bls/data12/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_12:/datadir/geth"
     restart: always
@@ -440,7 +436,7 @@ services:
       - "--allow-insecure-unlock"
       - "--unlock=0x3D97A28C98B5fb50B4FaeC70F98597513929C0a6"
       - "--miner.etherbase=0x3D97A28C98B5fb50B4FaeC70F98597513929C0a6"
-      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303,enode://d33b8419817346f7064be395d687efdcffcb93aa5ee2cebee04a719e96720b4f24fdcc9ebf2e967ecd303cbedc1ddba90b79a54a612b3f7615877b98e133607a@127.0.0.1:0:30313"
+      - "--bootnodes=enode://4878ee78197d7f710c172095b7ebc13a99a157e8614007f615f4eb0085a9ad42731347f618f40b8ca9d1a7c1f9519407f184cd4fd03e23de0d54222d19dd8f67@host.docker.internal:30303"
       - "--gcmode=archive"
       - "--syncmode=full"
       - "--verbosity=4"
@@ -450,7 +446,7 @@ services:
     volumes:
       - "./genesis.json:/datadir/genesis.json"
       - "./config/keystore:/datadir/keystore"
-      - "./config/bls/data13:/datadir/bls"
+      - "./config/bls/data13/bls:/datadir/bls"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/validator_13:/datadir/geth"
     restart: always
@@ -493,7 +489,7 @@ services:
       - "./config/keystore:/datadir/keystore"
       - "./config/password.txt:/datadir/password.txt"
       - "./datadir/rpc:/datadir/geth"
-      - "./config/bls/data54:/datadir/bls"
+      - "./config/bls/data54/bls:/datadir/bls"
     restart: always
     logging:
       driver: "json-file"
